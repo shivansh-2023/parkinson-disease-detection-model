@@ -6,7 +6,9 @@ This project implements a comprehensive system for detecting Parkinson's disease
 
 - **Multiple Model Architectures**:
   - CNN-based model for direct image classification
-  - Transfer learning models (VGG16, ResNet50) for improved feature extraction
+  - Enhanced CNN with improved architecture and specialized layers
+  - Transfer learning models (VGG16, ResNet50, MobileNet, EfficientNet) for improved feature extraction
+  - Ensemble model combining multiple approaches for robust predictions
   - Traditional machine learning models (Random Forest, SVM, Gradient Boosting) using HOG features
   - A hybrid model combining CNN features with clinical data
 
@@ -17,36 +19,47 @@ This project implements a comprehensive system for detecting Parkinson's disease
 
 - **Data Processing**:
   - Image preprocessing and augmentation
+  - Synthetic data generation for spiral and wave patterns
   - HOG feature extraction
   - Clinical data integration
   - Class imbalance handling with SMOTE
 
-- **Interactive Inference**:
+- **Interactive Interfaces**:
   - Command-line interface for batch processing
   - Web-based interface using Gradio for interactive testing
+  - Diagnostic application for model comparison and testing with various patterns
+  - Model prediction visualization tools
 
 ## Project Structure
 
 ```
-├── config.py              # Configuration parameters for models and data paths
-├── data_loader.py         # Data loading and preprocessing utilities
-├── model.py               # Model architectures implementation
-├── train.py               # Training script for all model types
-├── predict.py             # Prediction script with CLI and web interface
-├── requirements.txt       # Required dependencies
-├── data/                  # Directory for datasets
-│   ├── spiral/            # Spiral dataset (healthy and parkinson subdirectories)
-│   ├── wave/              # Wave dataset (healthy and parkinson subdirectories)
-│   └── parkinson_clinical_data.csv  # Clinical data
-└── saved_models/          # Directory for saving trained models
+├── config.py                 # Configuration parameters for models and data paths
+├── data_loader.py            # Data loading and preprocessing utilities
+├── model.py                  # Model architectures implementation
+├── enhanced_model.py         # Enhanced model architectures with improved performance
+├── enhanced_data_generator.py # Generates synthetic spiral and wave data with customizable parameters
+├── enhanced_train.py         # Enhanced training script with data augmentation support
+├── enhanced_predict.py       # Enhanced prediction script with support for multiple models
+├── train.py                  # Training script for all model types
+├── predict.py                # Prediction script with CLI and web interface
+├── diagnostic_app.py         # GUI application for diagnosing model performance
+├── test_model_predictions.py # Script for testing model predictions on various inputs
+├── improved_app.py           # Improved application with enhanced visualization
+├── requirements.txt          # Required dependencies
+├── data/                     # Directory for datasets
+│   ├── spiral/               # Spiral dataset (healthy and parkinson subdirectories)
+│   ├── wave/                 # Wave dataset (healthy and parkinson subdirectories)
+│   └── enhanced_synthetic_data/ # Synthetic dataset for robust training
+└── saved_models/             # Directory for saving trained models
+    └── enhanced/             # Directory for enhanced model checkpoints
 ```
 
 ## Installation
 
 1. Clone the repository:
 ```bash
-git clone <repository-url>
-cd parkinsons-detection
+git clone https://github.com/shivansh-2023/parkinson-disease-detection-model.git
+cd parkinson-disease-detection-model
 ```
 
 2. Install the required dependencies:
@@ -71,6 +84,11 @@ data/
 
 2. Prepare your clinical data CSV file with columns matching the ones specified in `config.py`.
 
+3. Generate synthetic data for improved training:
+```bash
+python enhanced_data_generator.py --samples 500 --output_dir data/enhanced_synthetic_data
+```
+
 ### Training
 
 Train a specific model or all models:
@@ -86,11 +104,17 @@ python train.py --model svm
 python train.py --model gb
 python train.py --model transfer_vgg16
 python train.py --model transfer_resnet50
+
+# Train an enhanced model
+python enhanced_train.py --model_type enhanced_cnn --epochs 30
+python enhanced_train.py --model_type mobilenet --epochs 30
+python enhanced_train.py --model_type efficientnet --epochs 30
+python enhanced_train.py --model_type ensemble --epochs 30
 ```
 
 Additional training options:
 ```bash
-python train.py --model cnn --epochs 100 --batch_size 16 --data_path custom_data/
+python enhanced_train.py --model_type enhanced_cnn --epochs 30 --augment True --batch_size 32
 ```
 
 ### Prediction
@@ -113,6 +137,41 @@ python predict.py --web_interface
 ```
 
 This will start a local Gradio server where you can upload images and see predictions in real-time.
+
+## Diagnostic Tools
+
+The project includes comprehensive diagnostic tools to evaluate model performance:
+
+### Diagnostic Application (GUI)
+
+Run the diagnostic application to compare model predictions and test with various patterns:
+
+```bash
+python diagnostic_app.py
+```
+
+Features:
+- Compare predictions from different model variants
+- Test models on synthetic patterns (empty image, spiral, wave, random noise)
+- Visualize prediction confidence and raw values
+- Upload and test custom images
+
+### Test Model Predictions
+
+Test how the model performs on different types of inputs:
+
+```bash
+python test_model_predictions.py --model enhanced_cnn
+```
+
+## Enhanced Models
+
+The project now includes improved model architectures:
+
+1. **Enhanced CNN:** Deeper architecture with optimized layers for better feature extraction
+2. **MobileNet:** Lightweight model adapted for spiral and wave pattern recognition
+3. **EfficientNet:** High-performance model with optimized architecture
+4. **Ensemble Model:** Combines predictions from multiple model architectures
 
 ## Model Performance
 
