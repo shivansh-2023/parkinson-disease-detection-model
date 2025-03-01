@@ -197,10 +197,6 @@ This project is inspired by research on using drawing tests for Parkinson's dise
 
 2. Pereira, C. R., Pereira, D. R., Silva, F. A., Masieiro, J. P., Weber, S. A., Hook, C., & Papa, J. P. (2016). A new computer vision-based approach to aid the diagnosis of Parkinson's disease. Computer Methods and Programs in Biomedicine, 136, 79-88.
 
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
 ## Acknowledgements
 
 - [TensorFlow](https://www.tensorflow.org/) for deep learning models
